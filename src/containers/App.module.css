@@ -1,0 +1,20 @@
+.App {
+  text-align: center;
+}
+
+    /*Radium inner file styling */
+
+        /* // const button = {
+    //   // backgroundColor: 'white',
+    //   padding: '8px',
+    //   border: '1px solid blue',
+    //   font: 'inherit',
+    //   cursor: 'pointer',
+    //   color: 'white',
+    //   backgroundColor: 'green',
+    //   // hovering is not recommend here, in in-line styling, it's pretty hard to operate it, but we can do it with Radium
+    //   ':hover': {
+    //     backgroundColor: 'lightgreen',
+    //     color: 'black'
+    //   }
+    // }; */

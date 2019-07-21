@@ -3,24 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "gh-pages": "^2.0.1",
+    "prop-types": "^15.7.2",
     "radium": "^0.25.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.0.0"
   },
-  "homepage": "https://github.com/AlexGithubbb/React-Practice-Persons-",
+  "homepage": "https://AlexGithubbb.github.io/React-Practice-Persons-",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
 }
