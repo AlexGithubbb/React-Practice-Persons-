@@ -20,15 +20,16 @@ class Person extends Component{
     this.inputElementRef.current.focus();
   }
   render(){
-    const{name, age, children, click, change} = this.props;
+    const { name, age, children, click, change, isAuthenticated} = this.props;
     console.log('[Person.js] rendering...');
     return (
       <Aux>
+        {isAuthenticated ? <p>Authenticated!</p>: <p>Please Login </p>} 
         {/* <div className={classes.Person}> */}
         {/* I'm a {name} and I'm {Math.floor(Math.random()*30)} years old */}
         <p onClick={click}  >I'm a {name} and I'm {age} years old</p>
         <p>{children}</p>
-        <input type="text" onChange={change} value={name} ref = {this.inputElementRef}/>
+        <input key='i3' type="text" onChange={change} value={name} ref = {this.inputElementRef}/>
       {/* </div> */}
       </Aux>
     )

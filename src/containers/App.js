@@ -3,11 +3,11 @@ import classes from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 // import Radium, { StyleRoot } from 'radium';
-import withClass from '../components/hoc/withClass'
-import Aux from '../components/hoc/Aux'
+import withClass from '../components/hoc/withClass';
+import Aux from '../components/hoc/Aux';
 
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
     console.log('[App.js] contructor');
   }
@@ -21,13 +21,14 @@ class App extends Component {
     oterState: 'this is another state',
     showPersons: false,
     showCockpit: true,
-    currentCounter: 0
+    currentCounter: 0,
+    isAuthenticated: false
   };
 
-   static getDerivedStateFromProps(props, state) {
-     console.log('[App.js] getDrviedStateFromProps', props);
-     return state;
-   }
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDrviedStateFromProps', props);
+    return state;
+  }
 
   switchNameHandler = newName => {
     this.setState({
@@ -38,7 +39,6 @@ class App extends Component {
       ]
     });
   };
-
 
   changeNameHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
@@ -53,20 +53,18 @@ class App extends Component {
     // update array with the personIndex we fetched before
     persons[personIndex] = person;
 
-    this.setState((prevState, props) => { 
+    this.setState((prevState, props) => {
       return {
         persons: persons,
         currentCounter: prevState.currentCounter + 1
-      }
-      });
+      };
+    });
   };
-
 
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow });
   };
-
 
   deletePersonHandler = personIndex => {
     // const persons = this.state.persons.slice();
@@ -75,7 +73,11 @@ class App extends Component {
     this.setState({ persons }); // this.setState({persons: persons})
   };
 
-  componentDidMount(){
+  checkAuthentication = () => {
+    this.setState({ isAuthenticated: true });
+  };
+
+  componentDidMount() {
     console.log('[App.js] componentDidMount');
   }
 
@@ -95,14 +97,16 @@ class App extends Component {
 
   render() {
     console.log('[App.js] rendering...');
-    let persons = null ;
+    let persons = null;
     if (this.state.showPersons) {
-      persons =
-          <Persons
-            persons={this.state.persons}
-            click={this.deletePersonHandler}
-            change={this.changeNameHandler}
-          />
+      persons = (
+        <Persons
+          persons={this.state.persons}
+          click={this.deletePersonHandler}
+          change={this.changeNameHandler}
+          isAuth={this.state.isAuthenticated}
+        />
+      );
       // button.backgroundColor = 'red';
       // button[':hover'] = {
       //   backgroundColor: 'salmon',
@@ -111,17 +115,25 @@ class App extends Component {
     }
 
     return (
-        // <A className={classes.App}>
-        <Aux>
-        <button onClick={() => { this.setState({ showCockpit: false})}}  >Clean up Cockpit</button>
-        {this.state.showCockpit ? <Cockpit
-          title={this.props.mainTitle}
-          click={this.togglePersonHandler}
-          personsLength={this.state.persons.length}
-          showPersons={this.state.showPersons} />
-        :null}
-          {persons}
-        </Aux>
+      // <A className={classes.App}>
+      <Aux>
+        <button
+          onClick={() => {this.setState({ showCockpit: false });
+        }}>
+          Clean up Cockpit
+        </button>
+        
+        {this.state.showCockpit ? (
+          <Cockpit
+            title={this.props.mainTitle}
+            click={this.togglePersonHandler}
+            personsLength={this.state.persons.length}
+            showPersons={this.state.showPersons}
+            auth={this.checkAuthentication}
+          />
+        ) : null}
+        {persons}
+      </Aux>
     );
   }
 }
